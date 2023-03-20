@@ -30,7 +30,7 @@ jobs:
         distribution: 'temurin'
         cache: gradle
     - name: Run tests
-      run: ./gradlew test
+      run: .\docker-java-app\gradlew test
 
   build:
     needs: tests
