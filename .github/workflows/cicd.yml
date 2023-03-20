@@ -34,33 +34,27 @@ steps:
 
 
 
-  build:
-    needs: tests
-    name: build
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17.0.*'
-        distribution: 'temurin'
-        cache: gradle
-    - name: Grant execute permissions for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
-    - name: Build and push docker image
-      uses: mr-smithers-excellent/docker-build-push@6.1
-      with:
-        image: trymstenberg/docker-java-app-ga-version
-        registry: docker.io
-        username: ${{secrets.DOCKER_USERNAME}}
-        password: ${{secrets.DOCKER_PASSWORD}}
-      
-      
-      
+build:
+  needs: tests
+  name: build
+  runs-on: ubuntu-latest
 
-    
-      
+  steps:
+  - uses: actions/checkout@v3
+  - name: Set up JDK 17
+    uses: actions/setup-java@v3
+    with:
+      java-version: '17.0.*'
+      distribution: 'temurin'
+      cache: gradle
+  - name: Grant execute permissions for gradlew
+    run: chmod +x gradlew
+  - name: Build with Gradle
+    run: ./gradlew build
+  - name: Build and push docker image
+    uses: mr-smithers-excellent/docker-build-push@6.1
+    with:
+      image: trymstenberg/docker-java-app-ga-version
+      registry: docker.io
+      username: ${{secrets.DOCKER_USERNAME}}
+      password: ${{secrets.DOCKER_PASSWORD}}
